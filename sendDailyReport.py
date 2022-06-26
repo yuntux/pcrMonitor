@@ -33,7 +33,7 @@ filePath = logPath+fileName
 
 msg = MIMEMultipart("alternative")
 msg["From"] = config.EMAIL_SENDER
-msg["To"] = config.EMAIL_TO_LIST
+msg["To"] = ','.join(config.EMAIL_TO_LIST)
 
 ##################################### COMPUTE STATISTICS
 nbTotalLignes = 0
