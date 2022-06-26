@@ -1,5 +1,8 @@
 import os
 
+
+#Les données suivantes ont été obtenues en observant les requêtes de portailpro dans un navigateur web, et en les analysant au regard du protocole OAUTH2
+# https://www.stefaanlippens.net/oauth-code-flow-pkce.html
 PORTAILPRO_OAUTH_CLIENT_ID = 'Va3ZplWNIlKE0RhrUCZDoQD_i_Aa'
 PORTAILPRO_OAUTH_CLIENT_AUTH_HEADER = 'Basic VmEzWnBsV05JbEtFMFJoclVDWkRvUURfaV9BYTpTQUp4VkVxRDhNVndWaGRkTUdHMm1fT3R6WGth' #concatenation du client_id et d'un autre paramètre propre au client, encodés en base6
 
