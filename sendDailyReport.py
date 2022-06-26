@@ -107,6 +107,8 @@ content = """
         Par ailleurs, le fichier quotidien est téléchargeable en cours de journée à l'adresse : https://www.dumaine.me/portailproLog/AAAA-MM-JJ_portailproLog.csv<br>
         En remplaçant AAAA-MM-JJ par la date du jour.<br>
 <br>
+        Le code est téléchargeable à cette adresse : https://github.com/yuntux/pcrMonitor<br>
+<br>
         Cordialement.<br>
         Aurélien DUMAINE
     </body>
