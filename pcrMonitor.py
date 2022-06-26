@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from portailproLib import client, logger as PortailproLogger
+from portailproLib.portailproLib import client, logger as PortailproLogger
 
 import logging
 import sys

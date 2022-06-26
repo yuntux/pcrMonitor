@@ -18,7 +18,7 @@ import secrets
 import logging
 logger = logging.getLogger(__name__)
 
-import config
+from . import portailproLibConfig as config
 
 class PortailproLog():
     def __init__(self, user, request):
