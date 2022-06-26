@@ -96,7 +96,7 @@ class client:
                     'nonce' : nonce 
                 }
 
-        r = requests.get('https://auth.'+self.instance+'/oauth2/authorize', verify=False, params=payload)
+        r = requests.get('https://auth.'+self.instance+'/oauth2/authorize', verify=config.TLS_CERTIFICATE_CHAIN, params=payload)
         sessionDataKey = extractUrlParamValue(r.url, 'sessionDataKey')
 
         loginform = {
@@ -105,7 +105,7 @@ class client:
                     'password' : self.password,
                     'sessionDataKey' : sessionDataKey,
                 }
-        r = requests.post('https://auth.'+self.instance+'/commonauth', verify=False, data=loginform) 
+        r = requests.post('https://auth.'+self.instance+'/commonauth', verify=config.TLS_CERTIFICATE_CHAIN, data=loginform) 
 
         candidate_state = extractUrlParamValue(r.url, 'state') 
         if not(candidate_state == state):
@@ -125,7 +125,7 @@ class client:
         headers={
                 'Authorization' : config.PORTAILPRO_OAUTH_CLIENT_AUTH_HEADER
                 }
-        r = requests.post('https://auth.'+self.instance+'/oauth2/token', verify=False, data=data, headers=headers)
+        r = requests.post('https://auth.'+self.instance+'/oauth2/token', verify=config.TLS_CERTIFICATE_CHAIN, data=data, headers=headers)
         self.oidcTokens = r.json()
         self.idInfo = jwt_payload_decode(self.oidcTokens['id_token'])
 
@@ -144,7 +144,7 @@ class client:
 
     def getFederatedAssociations(self):
         if not hasattr(self, 'federatedAssociations') :
-            r = requests.get('https://auth.'+self.instance+'/api/users/v1/me/federated-associations/', verify=False, headers=self.getCommonHeaders())
+            r = requests.get('https://auth.'+self.instance+'/api/users/v1/me/federated-associations/', verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders())
             logger.info(PortailproLog(self.login, r))
             self.federatedAssociations = r.json()
         return self.federatedAssociations
@@ -170,7 +170,7 @@ class client:
             params['size'] = 10 #TODO : Gérer la pagination + du cas avec + de 50 SIREN => cette ressource ne retourne aucune liste ?  
             params['page'] = 1
             params['filter'] = 'siren'
-            r = requests.get('https://services.'+self.instance+'/pcr-habilitations/v1/habilitations/'+self.getUserSub(), verify=False, headers=self.getCommonHeaders(), params=params)
+            r = requests.get('https://services.'+self.instance+'/pcr-habilitations/v1/habilitations/'+self.getUserSub(), verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders(), params=params)
             logger.info(PortailproLog(self.login, r))
             self.habilitationsCompanyList = r.json()
         return self.habilitationsCompanyList
@@ -180,7 +180,7 @@ class client:
             self.habilitationsCompany = {}
         if not (siren in self.habilitationsCompany.keys()):
             params = self.getFederatedAssociationParams()
-            r = requests.get('https://services.'+self.instance+'/pcr-habilitations/v1/habilitations/'+self.getUserSub()+'/'+siren, verify=False, headers=self.getCommonHeaders(), params=params)
+            r = requests.get('https://services.'+self.instance+'/pcr-habilitations/v1/habilitations/'+self.getUserSub()+'/'+siren, verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders(), params=params)
             logger.info(PortailproLog(self.login, r))
             self.habilitationsCompany[siren] = r.json()
         return self.habilitationsCompany[siren]
@@ -190,7 +190,7 @@ class client:
             self.rolesCompany = {}
         if not siren in self.rolesCompany.keys():
             params={'search.siren' : siren}
-            r = requests.get('https://services.'+self.instance+'/pcr-roles/v1/roles/utilisateur/'+self.getUserSub(), verify=False, headers=self.getCommonHeaders(), params=params)
+            r = requests.get('https://services.'+self.instance+'/pcr-roles/v1/roles/utilisateur/'+self.getUserSub(), verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders(), params=params)
             logger.info(PortailproLog(self.login, r))
             if len(r.text) > 0:
                 self.rolesCompany[siren] = r.json()
@@ -203,7 +203,7 @@ class client:
         if not siren in self.etablissementsUrssafRG.keys():
             params = self.getFederatedAssociationParams()
             params['siren'] = siren
-            r = requests.get('https://services.'+self.instance+'/api-utilitaire-no-business/v1/etablissements', verify=False, headers=self.getCommonHeaders(), params=params)
+            r = requests.get('https://services.'+self.instance+'/api-utilitaire-no-business/v1/etablissements', verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders(), params=params)
             logger.info(PortailproLog(self.login, r))
             self.etablissementsUrssafRG[siren] = r.json()['resultat']
             return self.etablissementsUrssafRG[siren]
@@ -214,7 +214,7 @@ class client:
         params = self.getFederatedAssociationParams()
         params['siren'] = siren
         params.update(dictParams)
-        r = requests.get(url, verify=False, headers=self.getCommonHeaders(), params=params)
+        r = requests.get(url, verify=config.TLS_CERTIFICATE_CHAIN, headers=self.getCommonHeaders(), params=params)
         logger.info(PortailproLog(self.login, r))
         return r.json()
 
