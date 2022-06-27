@@ -39,6 +39,7 @@ msg["To"] = ','.join(config.EMAIL_TO_LIST)
 nbTotalLignes = 0
 codeHTTPErreur = 0
 infosNonNul = 0
+listeComptes = []
 
 paths = {}
 
@@ -46,6 +47,9 @@ with open(filePath, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=config.LOG_CSV_SEPARATOR)
     next(spamreader)
     for row in spamreader:
+        compte = row[1]
+        if compte not in listeComptes:
+            listeComptes.append(compte)
         path = urlparse(row[2]).path
         if "/pcr-habilitations/v1/habilitations" in path:
             path = "/pcr-habilitations/v1/habilitations"
@@ -86,6 +90,9 @@ content = """
             <li> ... dont : Nombre total de requêtes avec un code retour HTTP en erreur (4xx ou 5xx) : """+str(codeHTTPErreur)+""" </li>
             <li>... dont : Nombre total de requêtes dont la balise info est valorisée (API TdB uniquement) : """+str(infosNonNul)+""" </li>
         </ul>
+<br>
+Liste des comptes utilisés pour ces tests : """+", ".join(listeComptes)+"""
+<br>
 <br>
         <table border="1">
             <thead>
