@@ -44,6 +44,7 @@ paths = {}
 
 with open(filePath, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=config.LOG_CSV_SEPARATOR)
+    next(spamreader)
     for row in spamreader:
         path = urlparse(row[2]).path
         if "/pcr-habilitations/v1/habilitations" in path:
