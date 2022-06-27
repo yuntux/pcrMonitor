@@ -88,7 +88,7 @@ content = """
         <ul>
             <li>Nombre total de requêtes logguées : """+str(nbTotalLignes)+""" </li>
             <li> ... dont : Nombre total de requêtes avec un code retour HTTP en erreur (4xx ou 5xx) : """+str(codeHTTPErreur)+""" </li>
-            <li>... dont : Nombre total de requêtes dont la balise info est valorisée (API TdB uniquement) : """+str(infosNonNul)+""" </li>
+            <li>... dont : Nombre total de requêtes avec une erreur API (balise info valorisée - API TdB uniquement) : """+str(infosNonNul)+""" </li>
         </ul>
 <br>
 Liste des comptes utilisés pour ces tests : """+", ".join(listeComptes)+"""
@@ -100,7 +100,7 @@ Liste des comptes utilisés pour ces tests : """+", ".join(listeComptes)+"""
                     <th>Ressource</th>
                     <th>NbLignes</th>
                     <th>Nb erreurs HTTP</th>
-                    <th>Nb balise info valorisée</th>
+                    <th>Nb erreur API TDB</th>
                 </tr>
             </thead>
             <tbody>
