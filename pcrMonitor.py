@@ -36,24 +36,25 @@ logger.addHandler(handler)
 
 
 
-account = "daf@tasmane.com"
+#account = "daf@tasmane.com"
 #account = "tatale51@free.fr"
-c = client(account, config.ACCOUNT_DICT[account]["password"])
-c.connect()
-siren= config.ACCOUNT_DICT[account]["sirenList"][0]
+for account in config.ACCOUNT_DICT.keys():
+    c = client(account, config.ACCOUNT_DICT[account]["password"])
+    c.connect()
+    siren= config.ACCOUNT_DICT[account]["sirenList"][0]
 
-print(c.getFederatedAssociations())
-print(c.getHabilitationsCompanyList())
-print(c.getHabilitationsCompany(siren))
-print(c.getRolesCompany(siren))
-print(c.getEtablissementsUrssafRG(siren))
-print(c.getIndicateursMessagerie(siren))
-print(c.getIndicateursCreances(siren))
-print(c.getIndicateursDeclarations(siren))
-print(c.getDeclarations(siren, 'EN_COURS'))
-print(c.getDeclarations(siren, 'TERMINE'))
-print(c.getDemandesRemboursement(siren, 'EN_COURS'))
-print(c.getDemandesRemboursement(siren, 'TERMINE'))
-print(c.getCreances(siren, 'EN_COURS'))
-print(c.getCreances(siren, 'TERMINE'))
-print(c.getSepaMandates(siren))
+    print(c.getFederatedAssociations())
+    print(c.getHabilitationsCompanyList())
+    print(c.getHabilitationsCompany(siren))
+    print(c.getRolesCompany(siren))
+    print(c.getEtablissementsUrssafRG(siren))
+    print(c.getIndicateursMessagerie(siren))
+    print(c.getIndicateursCreances(siren))
+    print(c.getIndicateursDeclarations(siren))
+    print(c.getDeclarations(siren, 'EN_COURS'))
+    print(c.getDeclarations(siren, 'TERMINE'))
+    print(c.getDemandesRemboursement(siren, 'EN_COURS'))
+    print(c.getDemandesRemboursement(siren, 'TERMINE'))
+    print(c.getCreances(siren, 'EN_COURS'))
+    print(c.getCreances(siren, 'TERMINE'))
+    print(c.getSepaMandates(siren))

@@ -77,7 +77,13 @@ with open(filePath, newline='') as csvfile:
 table = ""
 print(paths)
 for path, p in paths.items():
-    table += "<tr><td>"+path+"</td><td>"+str(p["nbLignes"])+"</td><td>"+str(p["codeHTTPErreur"])+"</td><td>"+str(p["infosNonNul"])+"</td></tr>\n"
+    colorHTTPErreur = ""
+    if p["codeHTTPErreur"] > (p["nbLignes"]/10):
+        colorHTTPErreur = "red"
+    colorAPIErreur = ""
+    if p["infosNonNul"] > (p["nbLignes"]/10):
+        colorAPIErreur = "red"
+    table += "<tr><td>"+path+"</td><td>"+str(p["nbLignes"])+"</td><td style='background-color:"+colorHTTPErreur+"'>"+str(p["codeHTTPErreur"])+"</td><td style='background-color:"+colorAPIErreur+"'>"+str(p["infosNonNul"])+"</td></tr>\n"
 
 content = """
 <html>
@@ -100,7 +106,7 @@ Liste des comptes utilisés pour ces tests : """+", ".join(listeComptes)+"""
                     <th>Ressource</th>
                     <th>NbLignes</th>
                     <th>Nb erreurs HTTP</th>
-                    <th>Nb erreur API TDB</th>
+                    <th>Nb erreurs API TDB</th>
                 </tr>
             </thead>
             <tbody>
